@@ -28,6 +28,16 @@ import Pricing from "./pages/public/Pricing";
 import FreeTools from "./pages/public/FreeTools";
 import Resources from "./pages/public/Resources";
 
+// Free Tools Pages
+import LinkedInPostGenerator from "./pages/tools/LinkedInPostGenerator";
+import LinkedInVideoDownloader from "./pages/tools/LinkedInVideoDownloader";
+import LinkedInHeadlineGenerator from "./pages/tools/LinkedInHeadlineGenerator";
+import LinkedInSummaryGenerator from "./pages/tools/LinkedInSummaryGenerator";
+import LinkedInCarouselGenerator from "./pages/tools/LinkedInCarouselGenerator";
+import LinkedInProfileFeedback from "./pages/tools/LinkedInProfileFeedback";
+import LinkedInPostBooster from "./pages/tools/LinkedInPostBooster";
+import ViralPostGenerator from "./pages/tools/ViralPostGenerator";
+
 // Admin Panel
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminUsers from "./pages/admin/AdminUsers";
@@ -51,10 +61,21 @@ const App = () => (
           <Routes>
             {/* Public Pages */}
             <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/features" element={<Features />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/free-tools" element={<FreeTools />} />
             <Route path="/resources" element={<Resources />} />
+            
+            {/* Free Tools Pages */}
+            <Route path="/tools/linkedin-post-generator" element={<LinkedInPostGenerator />} />
+            <Route path="/tools/linkedin-video-downloader" element={<LinkedInVideoDownloader />} />
+            <Route path="/tools/linkedin-headline-generator" element={<LinkedInHeadlineGenerator />} />
+            <Route path="/tools/linkedin-summary-generator" element={<LinkedInSummaryGenerator />} />
+            <Route path="/tools/linkedin-carousel-generator" element={<LinkedInCarouselGenerator />} />
+            <Route path="/tools/linkedin-profile-feedback" element={<LinkedInProfileFeedback />} />
+            <Route path="/tools/linkedin-post-booster" element={<LinkedInPostBooster />} />
+            <Route path="/tools/viral-post-generator" element={<ViralPostGenerator />} />
             
             {/* User Panel Routes (with /app prefix) */}
             <Route path="/app" element={<Index />} />

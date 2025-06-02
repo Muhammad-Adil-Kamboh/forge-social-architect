@@ -13,49 +13,57 @@ const FreeTools: React.FC = () => {
       icon: FileText,
       title: "LinkedIn Post Generator",
       description: "Generate engaging posts based on your experience and writing style",
-      color: "text-blue-600"
+      color: "text-blue-600",
+      path: "/tools/linkedin-post-generator"
     },
     {
       icon: Download,
       title: "LinkedIn Video Downloader",
       description: "Download your favorite LinkedIn videos for offline viewing",
-      color: "text-green-600"
+      color: "text-green-600",
+      path: "/tools/linkedin-video-downloader"
     },
     {
-      icon: Hash,
+      icon: FileText,
       title: "LinkedIn Headline Generator",
       description: "Create catchy profile headlines that attract attention",
-      color: "text-purple-600"
+      color: "text-purple-600",
+      path: "/tools/linkedin-headline-generator"
     },
     {
-      icon: User,
+      icon: FileText,
       title: "LinkedIn Summary Generator",
       description: "Craft a standout 'About' section that showcases your expertise",
-      color: "text-orange-600"
+      color: "text-orange-600",
+      path: "/tools/linkedin-summary-generator"
     },
     {
       icon: Image,
       title: "LinkedIn Carousel Generator",
       description: "Create beautiful carousel posts with AI assistance or visual editor",
-      color: "text-red-600"
+      color: "text-red-600",
+      path: "/tools/linkedin-carousel-generator"
     },
     {
-      icon: TrendingUp,
+      icon: FileText,
       title: "LinkedIn Profile Feedback",
       description: "Get AI-powered optimization suggestions for your profile",
-      color: "text-indigo-600"
+      color: "text-indigo-600",
+      path: "/tools/linkedin-profile-feedback"
     },
     {
-      icon: Sparkles,
+      icon: Zap,
       title: "LinkedIn Post Booster",
       description: "Enhance your existing posts with LeadKin AI suggestions",
-      color: "text-pink-600"
+      color: "text-pink-600",
+      path: "/tools/linkedin-post-booster"
     },
     {
       icon: Zap,
       title: "Viral Post Generator",
       description: "Use AI to write posts with high viral potential",
-      color: "text-yellow-600"
+      color: "text-yellow-600",
+      path: "/tools/viral-post-generator"
     }
   ];
 
@@ -106,7 +114,7 @@ const FreeTools: React.FC = () => {
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
-                <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer" onClick={() => navigate(tool.path)}>
                   <CardHeader className="text-center">
                     <Icon className={`w-12 h-12 ${tool.color} mx-auto mb-4`} />
                     <CardTitle className="text-lg">{tool.title}</CardTitle>
