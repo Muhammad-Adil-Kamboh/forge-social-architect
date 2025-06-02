@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   Lightbulb, 
@@ -50,13 +50,14 @@ const navigation = [
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-  const router = useRouter();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const isActiveRoute = (href: string) => {
     if (href === '/') {
-      return router.pathname === '/';
+      return location.pathname === '/';
     }
-    return router.pathname.startsWith(href);
+    return location.pathname.startsWith(href);
   };
 
   return (
@@ -85,7 +86,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             return (
               <button
                 key={item.name}
-                onClick={() => router.push(item.href)}
+                onClick={() => navigate(item.href)}
                 className={`w-full flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
                   isActive
                     ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
@@ -144,11 +145,11 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router.push('/profile-settings')}>
+                <DropdownMenuItem onClick={() => navigate('/profile-settings')}>
                   <Settings className="w-4 h-4 mr-2" />
                   Profile & Settings
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push('/support-hub')}>
+                <DropdownMenuItem onClick={() => navigate('/support-hub')}>
                   Support Hub
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />

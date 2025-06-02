@@ -78,7 +78,10 @@ export const ContentPerformanceChart: React.FC<ContentPerformanceChartProps> = (
                   month: 'short', 
                   day: 'numeric' 
                 })}
-                formatter={(value, name) => [value, name.charAt(0).toUpperCase() + name.slice(1)]}
+                formatter={(value, name) => {
+                  const nameStr = String(name);
+                  return [value, nameStr.charAt(0).toUpperCase() + nameStr.slice(1)];
+                }}
               />
               <Area
                 type="monotone"
