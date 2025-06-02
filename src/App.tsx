@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+
+// User Panel Pages
 import Index from "./pages/Index";
 import IdeaLab from "./pages/IdeaLab";
 import Drafts from "./pages/Drafts";
@@ -18,6 +20,17 @@ import Library from "./pages/Library";
 import TeamSpace from "./pages/TeamSpace";
 import ProfileSettings from "./pages/ProfileSettings";
 import SupportHub from "./pages/SupportHub";
+
+// Public Pages
+import Home from "./pages/public/Home";
+import Features from "./pages/public/Features";
+import Pricing from "./pages/public/Pricing";
+import FreeTools from "./pages/public/FreeTools";
+import Resources from "./pages/public/Resources";
+
+// Admin Panel
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +43,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
+            {/* User Panel Routes */}
             <Route path="/" element={<Index />} />
             <Route path="/idea-lab" element={<IdeaLab />} />
             <Route path="/drafts" element={<Drafts />} />
@@ -43,6 +57,17 @@ const App = () => (
             <Route path="/team-space" element={<TeamSpace />} />
             <Route path="/profile-settings" element={<ProfileSettings />} />
             <Route path="/support-hub" element={<SupportHub />} />
+            
+            {/* Public Pages */}
+            <Route path="/home" element={<Home />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/free-tools" element={<FreeTools />} />
+            <Route path="/resources" element={<Resources />} />
+            
+            {/* Admin Panel Routes */}
+            <Route path="/admin" element={<AdminDashboard />} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
