@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 
-// User Panel Pages
+// User Panel Pages (with /app prefix)
 import Index from "./pages/Index";
 import IdeaLab from "./pages/IdeaLab";
 import Drafts from "./pages/Drafts";
@@ -30,6 +30,12 @@ import Resources from "./pages/public/Resources";
 
 // Admin Panel
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminContent from "./pages/admin/AdminContent";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminBilling from "./pages/admin/AdminBilling";
+import AdminSupport from "./pages/admin/AdminSupport";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 import NotFound from "./pages/NotFound";
 
@@ -43,30 +49,36 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            {/* User Panel Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/idea-lab" element={<IdeaLab />} />
-            <Route path="/drafts" element={<Drafts />} />
-            <Route path="/pipeline" element={<Pipeline />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/radar" element={<Radar />} />
-            <Route path="/network" element={<Network />} />
-            <Route path="/saved-posts" element={<SavedPosts />} />
-            <Route path="/ai-studio" element={<AIStudio />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="/team-space" element={<TeamSpace />} />
-            <Route path="/profile-settings" element={<ProfileSettings />} />
-            <Route path="/support-hub" element={<SupportHub />} />
-            
             {/* Public Pages */}
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/features" element={<Features />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/free-tools" element={<FreeTools />} />
             <Route path="/resources" element={<Resources />} />
             
+            {/* User Panel Routes (with /app prefix) */}
+            <Route path="/app" element={<Index />} />
+            <Route path="/app/idea-lab" element={<IdeaLab />} />
+            <Route path="/app/drafts" element={<Drafts />} />
+            <Route path="/app/pipeline" element={<Pipeline />} />
+            <Route path="/app/insights" element={<Insights />} />
+            <Route path="/app/radar" element={<Radar />} />
+            <Route path="/app/network" element={<Network />} />
+            <Route path="/app/saved-posts" element={<SavedPosts />} />
+            <Route path="/app/ai-studio" element={<AIStudio />} />
+            <Route path="/app/library" element={<Library />} />
+            <Route path="/app/team-space" element={<TeamSpace />} />
+            <Route path="/app/profile-settings" element={<ProfileSettings />} />
+            <Route path="/app/support-hub" element={<SupportHub />} />
+            
             {/* Admin Panel Routes */}
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/content" element={<AdminContent />} />
+            <Route path="/admin/analytics" element={<AdminAnalytics />} />
+            <Route path="/admin/billing" element={<AdminBilling />} />
+            <Route path="/admin/support" element={<AdminSupport />} />
+            <Route path="/admin/settings" element={<AdminSettings />} />
             
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
