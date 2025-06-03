@@ -14,7 +14,7 @@ const Blog: React.FC = () => {
     date: "Dec 1, 2024",
     category: "Growth Strategy",
     slug: "ultimate-linkedin-growth-guide-2024",
-    image: true
+    image: "/placeholder.svg"
   };
 
   const posts = [
@@ -25,7 +25,7 @@ const Blog: React.FC = () => {
       date: "Nov 28, 2024",
       category: "Content Creation",
       slug: "viral-linkedin-posts-guide",
-      image: true
+      image: "/placeholder.svg"
     },
     {
       title: "AI Tools for LinkedIn Content Creation",
@@ -34,7 +34,7 @@ const Blog: React.FC = () => {
       date: "Nov 25, 2024",
       category: "AI Tools",
       slug: "ai-tools-linkedin-content",
-      image: true
+      image: "/placeholder.svg"
     },
     {
       title: "LinkedIn Analytics: What Metrics Actually Matter",
@@ -43,7 +43,7 @@ const Blog: React.FC = () => {
       date: "Nov 22, 2024",
       category: "Analytics",
       slug: "linkedin-analytics-guide",
-      image: true
+      image: "/placeholder.svg"
     },
     {
       title: "Building Authority on LinkedIn: A Step-by-Step Guide",
@@ -52,7 +52,7 @@ const Blog: React.FC = () => {
       date: "Nov 19, 2024",
       category: "Personal Branding",
       slug: "building-authority-linkedin",
-      image: true
+      image: "/placeholder.svg"
     },
     {
       title: "The Psychology of LinkedIn Engagement",
@@ -61,7 +61,7 @@ const Blog: React.FC = () => {
       date: "Nov 16, 2024",
       category: "Psychology",
       slug: "psychology-linkedin-engagement",
-      image: true
+      image: "/placeholder.svg"
     }
   ];
 
