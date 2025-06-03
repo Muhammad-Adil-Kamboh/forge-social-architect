@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -26,6 +27,14 @@ import Features from "./pages/public/Features";
 import Pricing from "./pages/public/Pricing";
 import FreeTools from "./pages/public/FreeTools";
 import Resources from "./pages/public/Resources";
+
+// Blog Pages
+import Blog from "./pages/public/Blog";
+import BlogArticle from "./pages/public/BlogArticle";
+
+// Help Center
+import Help from "./pages/public/Help";
+import HelpArticle from "./pages/public/HelpArticle";
 
 // Free Tools Pages
 import LinkedInPostGenerator from "./pages/tools/LinkedInPostGenerator";
