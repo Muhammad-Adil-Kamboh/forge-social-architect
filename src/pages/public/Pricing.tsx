@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Star } from 'lucide-react';
@@ -58,30 +58,7 @@ const Pricing: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <button onClick={() => navigate('/home')} className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              LeadKin
-            </button>
-            <nav className="hidden md:flex space-x-8">
-              <button onClick={() => navigate('/home')} className="text-gray-700 hover:text-blue-600 transition-colors">Home</button>
-              <button onClick={() => navigate('/features')} className="text-gray-700 hover:text-blue-600 transition-colors">Features</button>
-              <button onClick={() => navigate('/pricing')} className="text-blue-600 font-medium">Pricing</button>
-              <button onClick={() => navigate('/free-tools')} className="text-gray-700 hover:text-blue-600 transition-colors">Free Tools</button>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" onClick={() => navigate('/')}>Log In</Button>
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700" onClick={() => navigate('/')}>
-                Sign-up for Free
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <AppShell>
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -192,7 +169,7 @@ const Pricing: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+    </AppShell>
   );
 };
 

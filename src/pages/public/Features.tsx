@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { AppShell } from '@/components/layout/AppShell';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Sparkles, Calendar, Image, Users, BarChart3, Chrome, ArrowRight } from 'lucide-react';
@@ -48,33 +48,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">L</span>
-              </div>
-              <button onClick={() => navigate('/')} className="text-xl font-bold text-slate-900">LeadKin</button>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <button onClick={() => navigate('/')} className="text-slate-700 hover:text-blue-600 transition-colors">Home</button>
-              <button onClick={() => navigate('/features')} className="text-blue-600 font-medium">Features</button>
-              <button onClick={() => navigate('/pricing')} className="text-slate-700 hover:text-blue-600 transition-colors">Pricing</button>
-              <button onClick={() => navigate('/free-tools')} className="text-slate-700 hover:text-blue-600 transition-colors">Free Tools</button>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Button variant="ghost" onClick={() => navigate('/app')}>Log In</Button>
-              <Button className="bg-blue-600 hover:bg-blue-700" onClick={() => navigate('/app')}>
-                Sign-up for Free
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
+    <AppShell>
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
         <div className="max-w-7xl mx-auto text-center">
@@ -173,7 +147,7 @@ const Features: React.FC = () => {
           </Button>
         </div>
       </section>
-    </div>
+    </AppShell>
   );
 };
 

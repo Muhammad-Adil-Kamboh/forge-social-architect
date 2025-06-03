@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -49,6 +48,10 @@ import AdminSettings from "./pages/admin/AdminSettings";
 
 import NotFound from "./pages/NotFound";
 
+// Legal Pages
+import PrivacyPolicy from "./pages/legal/PrivacyPolicy";
+import TermsOfService from "./pages/legal/TermsOfService";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -66,6 +69,10 @@ const App = () => (
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/free-tools" element={<FreeTools />} />
             <Route path="/resources" element={<Resources />} />
+            
+            {/* Legal Pages */}
+            <Route path="/our-privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
             
             {/* Free Tools Pages */}
             <Route path="/tools/linkedin-post-generator" element={<LinkedInPostGenerator />} />
