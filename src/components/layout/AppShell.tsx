@@ -3,6 +3,7 @@ import React from 'react';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { CookiesBanner } from './CookiesBanner';
+import { SupportButton } from '@/components/support/SupportButton';
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export const AppShell: React.FC<AppShellProps> = ({ children }) => {
       </main>
       <Footer />
       <CookiesBanner />
+      <SupportButton />
     </div>
   );
 };

@@ -7,83 +7,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 255 255 255; /* White */
+    --foreground: 0 0 0; /* Black */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 255 255 255; /* White */
+    --card-foreground: 0 0 0; /* Black */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 255 255 255; /* White */
+    --popover-foreground: 0 0 0; /* Black */
 
-    --primary: 216 100% 63%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 10 102 194; /* LinkedIn Blue */
+    --primary-foreground: 255 255 255; /* White */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 243 242 239; /* LinkedIn Light Gray */
+    --secondary-foreground: 0 0 0; /* Black */
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 243 242 239; /* LinkedIn Light Gray */
+    --muted-foreground: 102 102 102; /* Gray */
 
-    --accent: 34 100% 64%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 5 118 66; /* LinkedIn Green */
+    --accent-foreground: 255 255 255; /* White */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 220 38 38; /* Red */
+    --destructive-foreground: 255 255 255; /* White */
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 216 100% 63%;
+    --border: 229 231 235; /* Light Gray */
+    --input: 229 231 235; /* Light Gray */
+    --ring: 10 102 194; /* LinkedIn Blue */
 
-    --radius: 0.5rem;
+    --radius: 8px;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 255 255 255;
+    --sidebar-foreground: 0 0 0;
+    --sidebar-primary: 10 102 194;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 243 242 239;
+    --sidebar-accent-foreground: 0 0 0;
+    --sidebar-border: 229 231 235;
+    --sidebar-ring: 10 102 194;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 23 23 23; /* Dark Gray */
+    --foreground: 255 255 255; /* White */
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 23 23 23; /* Dark Gray */
+    --card-foreground: 255 255 255; /* White */
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 23 23 23; /* Dark Gray */
+    --popover-foreground: 255 255 255; /* White */
 
-    --primary: 216 100% 60%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 10 102 194; /* LinkedIn Blue */
+    --primary-foreground: 255 255 255; /* White */
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 38 38 38; /* Darker Gray */
+    --secondary-foreground: 255 255 255; /* White */
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 38 38 38; /* Darker Gray */
+    --muted-foreground: 163 163 163; /* Light Gray */
 
-    --accent: 34 100% 60%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 5 118 66; /* LinkedIn Green */
+    --accent-foreground: 255 255 255; /* White */
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 239 68 68; /* Light Red */
+    --destructive-foreground: 255 255 255; /* White */
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 216 100% 60%;
+    --border: 38 38 38; /* Darker Gray */
+    --input: 38 38 38; /* Darker Gray */
+    --ring: 10 102 194; /* LinkedIn Blue */
 
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 23 23 23;
+    --sidebar-foreground: 255 255 255;
+    --sidebar-primary: 10 102 194;
+    --sidebar-primary-foreground: 255 255 255;
+    --sidebar-accent: 38 38 38;
+    --sidebar-accent-foreground: 255 255 255;
+    --sidebar-border: 38 38 38;
+    --sidebar-ring: 10 102 194;
   }
 }
 
@@ -98,5 +98,23 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom animations */
+@layer components {
+  .animate-stagger {
+    animation-delay: calc(var(--stagger) * 150ms);
+  }
+  
+  .gradient-linkedin {
+    background: linear-gradient(135deg, #0A66C2 0%, #057642 100%);
+  }
+  
+  .text-gradient-linkedin {
+    background: linear-gradient(135deg, #0A66C2 0%, #057642 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }

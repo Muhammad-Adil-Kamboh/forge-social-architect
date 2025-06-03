@@ -36,6 +36,10 @@ import BlogArticle from "./pages/public/BlogArticle";
 import Help from "./pages/public/Help";
 import HelpArticle from "./pages/public/HelpArticle";
 
+// Authentication Pages
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+
 // Free Tools Pages
 import LinkedInPostGenerator from "./pages/tools/LinkedInPostGenerator";
 import LinkedInVideoDownloader from "./pages/tools/LinkedInVideoDownloader";
@@ -78,6 +82,18 @@ const App = () => (
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/free-tools" element={<FreeTools />} />
             <Route path="/resources" element={<Resources />} />
+            
+            {/* Blog Pages */}
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
+            
+            {/* Help Center */}
+            <Route path="/help" element={<Help />} />
+            <Route path="/help/:slug" element={<HelpArticle />} />
+            
+            {/* Authentication Pages */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             
             {/* Legal Pages */}
             <Route path="/our-privacy-policy" element={<PrivacyPolicy />} />

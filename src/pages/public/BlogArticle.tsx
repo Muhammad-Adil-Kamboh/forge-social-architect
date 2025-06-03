@@ -4,7 +4,7 @@ import { BlogLayout } from '@/components/blog/BlogLayout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Calendar, User, Clock } from 'lucide-react';
+import { Calendar, User, Clock, Share2, Heart, MessageCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
 const BlogArticle: React.FC = () => {
@@ -17,6 +17,9 @@ const BlogArticle: React.FC = () => {
     date: "December 1, 2024",
     readTime: "12 min read",
     category: "Growth Strategy",
+    likes: 247,
+    comments: 18,
+    shares: 35,
     content: `
       <h2 id="introduction">Introduction</h2>
       <p>LinkedIn has evolved dramatically in recent years, becoming the premier platform for professional networking and personal branding. With over 900 million users worldwide, standing out requires more than just posting occasionally.</p>
@@ -50,71 +53,108 @@ const BlogArticle: React.FC = () => {
   return (
     <BlogLayout showToc tocHeadings={tocHeadings}>
       {/* Cover Image */}
-      <div className="aspect-video bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg mb-8 flex items-center justify-center">
+      <div className="aspect-video bg-gradient-to-r from-linkedin-500 to-accent rounded-lg mb-8 flex items-center justify-center animate-scale-in">
         <span className="text-white text-2xl font-bold">Article Cover Image</span>
       </div>
 
       {/* Article Header */}
-      <header className="mb-8">
-        <Badge className="mb-4">{article.category}</Badge>
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+      <header className="mb-8 animate-fade-in">
+        <Badge className="mb-4 bg-linkedin-100 text-linkedin-700 hover:bg-linkedin-200">{article.category}</Badge>
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
           {article.title}
         </h1>
         
-        <div className="flex items-center space-x-6 text-slate-600 mb-6">
-          <div className="flex items-center">
-            <User className="w-5 h-5 mr-2" />
-            {article.author}
+        <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+          <div className="flex items-center space-x-6 text-gray-600">
+            <div className="flex items-center">
+              <User className="w-5 h-5 mr-2" />
+              {article.author}
+            </div>
+            <div className="flex items-center">
+              <Calendar className="w-5 h-5 mr-2" />
+              {article.date}
+            </div>
+            <div className="flex items-center">
+              <Clock className="w-5 h-5 mr-2" />
+              {article.readTime}
+            </div>
           </div>
-          <div className="flex items-center">
-            <Calendar className="w-5 h-5 mr-2" />
-            {article.date}
-          </div>
-          <div className="flex items-center">
-            <Clock className="w-5 h-5 mr-2" />
-            {article.readTime}
+
+          {/* Social Actions */}
+          <div className="flex items-center space-x-4">
+            <Button variant="outline" size="sm" className="flex items-center space-x-2">
+              <Heart className="w-4 h-4" />
+              <span>{article.likes}</span>
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center space-x-2">
+              <MessageCircle className="w-4 h-4" />
+              <span>{article.comments}</span>
+            </Button>
+            <Button variant="outline" size="sm" className="flex items-center space-x-2">
+              <Share2 className="w-4 h-4" />
+              <span>{article.shares}</span>
+            </Button>
           </div>
         </div>
       </header>
 
       {/* Article Content */}
       <div 
-        className="prose prose-lg max-w-none mb-12"
+        className="prose prose-lg max-w-none mb-12 animate-slide-up"
         dangerouslySetInnerHTML={{ __html: article.content }}
       />
 
       {/* Inline CTA */}
-      <Card className="bg-blue-50 border-blue-200 mb-12">
+      <Card className="bg-gradient-to-r from-linkedin-50 to-accent/10 border-linkedin-200 mb-12 animate-scale-in">
         <CardContent className="p-8 text-center">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4">
             Ready to implement these strategies?
           </h3>
-          <p className="text-slate-600 mb-6">
+          <p className="text-gray-600 mb-6">
             Join thousands of creators using LeadKin to streamline their LinkedIn growth
           </p>
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+          <Button size="lg" className="bg-linkedin-500 hover:bg-linkedin-600">
             Start your free trial
           </Button>
         </CardContent>
       </Card>
 
       {/* Author Card */}
-      <Card className="mb-8">
+      <Card className="mb-8 animate-fade-in">
         <CardContent className="p-6">
           <div className="flex items-start space-x-4">
-            <div className="w-16 h-16 bg-slate-200 rounded-full flex items-center justify-center">
-              <User className="w-8 h-8 text-slate-400" />
+            <div className="w-16 h-16 bg-linkedin-100 rounded-full flex items-center justify-center">
+              <User className="w-8 h-8 text-linkedin-500" />
             </div>
             <div>
-              <h4 className="text-xl font-bold text-slate-900 mb-2">{article.author}</h4>
-              <p className="text-slate-600 mb-4">
+              <h4 className="text-xl font-bold text-gray-900 mb-2">{article.author}</h4>
+              <p className="text-gray-600 mb-4">
                 Sarah is a LinkedIn growth strategist who has helped over 500 professionals 
                 build their personal brands and generate leads through strategic content creation.
               </p>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="border-linkedin-300 text-linkedin-700 hover:bg-linkedin-50">
                 Follow Sarah on LinkedIn
               </Button>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Related Articles */}
+      <Card className="animate-fade-in">
+        <CardContent className="p-6">
+          <h4 className="text-xl font-bold text-gray-900 mb-4">Related Articles</h4>
+          <div className="space-y-4">
+            {[
+              "How to Create Viral LinkedIn Posts",
+              "LinkedIn Analytics: What Metrics Matter",
+              "Building Your Personal Brand on LinkedIn"
+            ].map((title, index) => (
+              <div key={index} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                <div className="w-2 h-2 bg-linkedin-500 rounded-full"></div>
+                <span className="text-gray-700 hover:text-linkedin-600">{title}</span>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
