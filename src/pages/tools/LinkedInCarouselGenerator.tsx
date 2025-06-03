@@ -4,14 +4,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, Image, Zap, Download } from 'lucide-react';
+import { ArrowLeft, Image, Zap, Download, Sparkles, Star, Users, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 const LinkedInCarouselGenerator: React.FC = () => {
   const navigate = useNavigate();
   const [topic, setTopic] = useState('');
   const [slides, setSlides] = useState(['']);
   const [isGenerating, setIsGenerating] = useState(false);
+
+  useScrollToTop();
 
   const addSlide = () => {
     setSlides([...slides, '']);
@@ -40,9 +43,9 @@ const LinkedInCarouselGenerator: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-red-50">
+    <div className="min-h-screen bg-background dark:bg-background transition-colors duration-300">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+      <header className="bg-card/80 dark:bg-card/80 backdrop-blur-sm border-b border-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
@@ -50,39 +53,73 @@ const LinkedInCarouselGenerator: React.FC = () => {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Tools</span>
               </Button>
-              <div className="h-6 w-px bg-gray-300"></div>
-              <h1 className="text-xl font-bold text-gray-900">LinkedIn Carousel Generator</h1>
+              <div className="h-6 w-px bg-border"></div>
+              <h1 className="text-xl font-bold">LinkedIn Carousel Generator</h1>
             </div>
-            <Button onClick={() => navigate('/')} className="bg-red-600 hover:bg-red-700">
+            <Button onClick={() => navigate('/')} className="bg-linkedin-green-500 hover:bg-linkedin-green-600">
               Get Full Access
             </Button>
           </div>
         </div>
       </header>
 
+      {/* Hero Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-linkedin-green-50 via-background to-linkedin-green-100 dark:from-linkedin-green-900/20 dark:via-background dark:to-linkedin-green-800/20">
+        <div className="max-w-4xl mx-auto text-center">
+          {/* Badge */}
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-linkedin-green-100 dark:bg-linkedin-green-900/50 text-linkedin-green-700 dark:text-linkedin-green-300 text-sm font-medium mb-8 animate-fade-in">
+            <Image className="w-4 h-4 mr-2" />
+            Visual Content Creation
+          </div>
+
+          {/* Main headline */}
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-slide-up">
+            Create Stunning{' '}
+            <span className="bg-gradient-to-r from-linkedin-green-500 to-linkedin-500 bg-clip-text text-transparent">
+              Carousels
+            </span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up" style={{ animationDelay: '200ms' }}>
+            Design engaging carousel posts that tell a story and drive massive engagement on LinkedIn. 
+            Perfect for tutorials, tips, and educational content.
+          </p>
+
+          {/* Stats */}
+          <div className="flex flex-wrap justify-center gap-8 mb-12 animate-fade-in" style={{ animationDelay: '400ms' }}>
+            {[
+              { icon: Image, value: '10x', label: 'More Engaging' },
+              { icon: TrendingUp, value: '300%', label: 'Higher Reach' },
+              { icon: Star, value: '4.9/5', label: 'User Rating' }
+            ].map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="text-center animate-scale-in" style={{ animationDelay: `${600 + index * 100}ms` }}>
+                  <Icon className="w-8 h-8 text-linkedin-green-500 mx-auto mb-2" />
+                  <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            LinkedIn Carousel Generator
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Create engaging carousel posts that tell a story and drive engagement on LinkedIn.
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Controls */}
-          <Card className="lg:col-span-1">
+          <Card className="lg:col-span-1 linkedin-shadow">
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
-                <Image className="w-5 h-5 text-red-600" />
+                <Image className="w-5 h-5 text-linkedin-green-500" />
                 <span>Carousel Settings</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium mb-2">
                   Carousel Topic
                 </label>
                 <Input
@@ -95,7 +132,7 @@ const LinkedInCarouselGenerator: React.FC = () => {
               <Button 
                 onClick={generateCarousel}
                 disabled={!topic || isGenerating}
-                className="w-full bg-red-600 hover:bg-red-700"
+                className="w-full bg-linkedin-green-500 hover:bg-linkedin-green-600"
               >
                 {isGenerating ? (
                   <>
@@ -126,7 +163,7 @@ const LinkedInCarouselGenerator: React.FC = () => {
           <div className="lg:col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {slides.map((slide, index) => (
-                <Card key={index} className="h-80">
+                <Card key={index} className="h-80 linkedin-shadow">
                   <CardHeader className="pb-2">
                     <CardTitle className="text-sm">Slide {index + 1}</CardTitle>
                   </CardHeader>
@@ -145,7 +182,7 @@ const LinkedInCarouselGenerator: React.FC = () => {
         </div>
 
         {/* Tips */}
-        <Card className="mt-12">
+        <Card className="mt-12 linkedin-shadow">
           <CardHeader>
             <CardTitle>🎨 Carousel Design Tips</CardTitle>
           </CardHeader>
@@ -170,8 +207,8 @@ const LinkedInCarouselGenerator: React.FC = () => {
                 }
               ].map((section, index) => (
                 <div key={index}>
-                  <h4 className="font-semibold text-gray-900 mb-3">{section.title}</h4>
-                  <ul className="text-sm text-gray-600 space-y-1">
+                  <h4 className="font-semibold mb-3">{section.title}</h4>
+                  <ul className="text-sm text-muted-foreground space-y-1">
                     {section.tips.map((tip, tipIndex) => (
                       <li key={tipIndex}>• {tip}</li>
                     ))}
