@@ -166,7 +166,7 @@
   }
 
   .animate-linkedin-fade {
-    @apply transition-opacity duration-160 ease-out;
+    @apply transition-opacity duration-150 ease-out;
   }
 
   /* Shadows - Subtle, grey-based only */
