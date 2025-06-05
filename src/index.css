@@ -12,8 +12,11 @@
     --blue-accent: 0 160 220; /* #00A0DC - Rich Electric Blue */
     --grey-900: 0 0 0; /* #000000 - Black */
     --grey-800: 49 51 53; /* #313335 - Dark Charcoal */
+    --grey-700: 102 102 102; /* #666666 - Text Secondary */
     --grey-500: 134 136 138; /* #86888A - Taupe Gray */
-    --grey-300: 202 204 206; /* #CACCCE - Chinese Silver */
+    --grey-300: 222 225 227; /* #DEE1E3 - Light Border */
+    --grey-200: 243 242 239; /* #F3F2EF - Background Light */
+    --grey-100: 250 250 250; /* #FAFAFA - Very Light Background */
     --white: 255 255 255; /* #FFFFFF - White */
 
     /* Design System Mappings */
@@ -25,9 +28,9 @@
     --popover-foreground: var(--grey-800);
     --primary: var(--blue-primary);
     --primary-foreground: var(--white);
-    --secondary: var(--grey-300);
+    --secondary: var(--grey-200);
     --secondary-foreground: var(--grey-800);
-    --muted: var(--grey-300);
+    --muted: var(--grey-200);
     --muted-foreground: var(--grey-500);
     --accent: var(--blue-accent);
     --accent-foreground: var(--white);
@@ -43,7 +46,7 @@
     --sidebar-foreground: var(--grey-800);
     --sidebar-primary: var(--blue-primary);
     --sidebar-primary-foreground: var(--white);
-    --sidebar-accent: var(--grey-300);
+    --sidebar-accent: var(--grey-200);
     --sidebar-accent-foreground: var(--grey-800);
     --sidebar-border: var(--grey-300);
     --sidebar-ring: var(--blue-primary);
@@ -97,6 +100,7 @@
     @apply bg-background text-foreground transition-colors duration-300;
     font-weight: 400;
     line-height: 1.6;
+    background-color: rgb(var(--grey-200));
   }
 
   /* Typography Scale - LinkedIn Standards */
@@ -126,6 +130,7 @@
     font-weight: 400;
     line-height: 1.6;
     max-width: 75ch; /* LinkedIn readability standard */
+    color: rgb(var(--grey-700));
   }
 
   .dark h1 {
@@ -135,6 +140,10 @@
   .dark h2,
   .dark h3 {
     color: rgb(var(--white));
+  }
+
+  .dark p {
+    color: rgb(var(--grey-300));
   }
 
   /* Blog content uses Source Serif */
@@ -183,14 +192,36 @@
     @apply bg-[rgb(var(--grey-300))] animate-pulse rounded;
   }
 
-  /* Remove all non-brand gradients and colors */
-  .gradient-linkedin-hero {
-    background: linear-gradient(135deg, rgb(var(--blue-primary)) 0%, rgb(var(--blue-accent)) 100%);
+  /* LinkedIn-compliant backgrounds */
+  .bg-linkedin-light {
+    background-color: rgb(var(--grey-200));
   }
 
-  /* Duotone image overlay */
-  .img-duotone-linkedin {
-    filter: sepia(1) hue-rotate(180deg) saturate(2) brightness(0.8);
+  .bg-linkedin-surface {
+    background-color: rgb(var(--white));
+  }
+
+  /* Text colors */
+  .text-linkedin-primary {
+    color: rgb(var(--blue-primary));
+  }
+
+  .text-linkedin-secondary {
+    color: rgb(var(--grey-700));
+  }
+
+  .text-linkedin-muted {
+    color: rgb(var(--grey-500));
+  }
+
+  /* Border colors */
+  .border-linkedin {
+    border-color: rgb(var(--grey-300));
+  }
+
+  /* Hover states */
+  .hover-linkedin-surface:hover {
+    background-color: rgb(var(--grey-100));
   }
 }
 
@@ -206,6 +237,16 @@
 .border-purple-600,
 .border-green-600 {
   @apply text-[rgb(var(--blue-primary))] bg-[rgb(var(--blue-primary))] border-[rgb(var(--blue-primary))];
+}
+
+/* Remove any orange/yellow/brown tones */
+.text-orange-500,
+.text-amber-500,
+.text-yellow-600,
+.bg-orange-500,
+.bg-amber-500,
+.bg-yellow-600 {
+  @apply text-[rgb(var(--blue-primary))] bg-[rgb(var(--blue-primary))];
 }
 
 /* Ensure 8pt grid spacing */

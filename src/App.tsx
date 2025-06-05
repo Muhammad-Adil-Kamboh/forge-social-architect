@@ -1,8 +1,9 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from '@/components/ui/toaster';
 
 // Public pages
 import Home from '@/pages/public/Home';
@@ -71,70 +72,73 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="system" storageKey="leadkin-ui-theme">
-        <BrowserRouter>
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/free-tools" element={<FreeTools />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogArticle />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/help/:slug" element={<HelpArticle />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/resources" element={<Resources />} />
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/free-tools" element={<FreeTools />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogArticle />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/help/:slug" element={<HelpArticle />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/partners" element={<Partners />} />
+              <Route path="/resources" element={<Resources />} />
 
-            {/* Legal routes */}
-            <Route path="/our-privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
+              {/* Legal routes */}
+              <Route path="/our-privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
 
-            {/* Auth routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+              {/* Auth routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
 
-            {/* Tool routes */}
-            <Route path="/tools/linkedin-post-generator" element={<LinkedInPostGenerator />} />
-            <Route path="/tools/linkedin-headline-generator" element={<LinkedInHeadlineGenerator />} />
-            <Route path="/tools/linkedin-summary-generator" element={<LinkedInSummaryGenerator />} />
-            <Route path="/tools/linkedin-carousel-generator" element={<LinkedInCarouselGenerator />} />
-            <Route path="/tools/linkedin-profile-feedback" element={<LinkedInProfileFeedback />} />
-            <Route path="/tools/linkedin-post-booster" element={<LinkedInPostBooster />} />
-            <Route path="/tools/viral-post-generator" element={<ViralPostGenerator />} />
-            <Route path="/tools/linkedin-video-downloader" element={<LinkedInVideoDownloader />} />
+              {/* Tool routes */}
+              <Route path="/tools/linkedin-post-generator" element={<LinkedInPostGenerator />} />
+              <Route path="/tools/linkedin-headline-generator" element={<LinkedInHeadlineGenerator />} />
+              <Route path="/tools/linkedin-summary-generator" element={<LinkedInSummaryGenerator />} />
+              <Route path="/tools/linkedin-carousel-generator" element={<LinkedInCarouselGenerator />} />
+              <Route path="/tools/linkedin-profile-feedback" element={<LinkedInProfileFeedback />} />
+              <Route path="/tools/linkedin-post-booster" element={<LinkedInPostBooster />} />
+              <Route path="/tools/viral-post-generator" element={<ViralPostGenerator />} />
+              <Route path="/tools/linkedin-video-downloader" element={<LinkedInVideoDownloader />} />
 
-            {/* App routes (authenticated) */}
-            <Route path="/app" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/ai-studio" element={<AIStudio />} />
-            <Route path="/idea-lab" element={<IdeaLab />} />
-            <Route path="/drafts" element={<Drafts />} />
-            <Route path="/pipeline" element={<Pipeline />} />
-            <Route path="/saved-posts" element={<SavedPosts />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/network" element={<Network />} />
-            <Route path="/radar" element={<Radar />} />
-            <Route path="/team-space" element={<TeamSpace />} />
-            <Route path="/profile-settings" element={<ProfileSettings />} />
-            <Route path="/support-hub" element={<SupportHub />} />
+              {/* App routes (authenticated) */}
+              <Route path="/app" element={<Index />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/ai-studio" element={<AIStudio />} />
+              <Route path="/idea-lab" element={<IdeaLab />} />
+              <Route path="/drafts" element={<Drafts />} />
+              <Route path="/pipeline" element={<Pipeline />} />
+              <Route path="/saved-posts" element={<SavedPosts />} />
+              <Route path="/library" element={<Library />} />
+              <Route path="/insights" element={<Insights />} />
+              <Route path="/network" element={<Network />} />
+              <Route path="/radar" element={<Radar />} />
+              <Route path="/team-space" element={<TeamSpace />} />
+              <Route path="/profile-settings" element={<ProfileSettings />} />
+              <Route path="/support-hub" element={<SupportHub />} />
 
-            {/* Admin routes */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/content" element={<AdminContent />} />
-            <Route path="/admin/analytics" element={<AdminAnalytics />} />
-            <Route path="/admin/billing" element={<AdminBilling />} />
-            <Route path="/admin/support" element={<AdminSupport />} />
-            <Route path="/admin/settings" element={<AdminSettings />} />
+              {/* Admin routes */}
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/users" element={<AdminUsers />} />
+              <Route path="/admin/content" element={<AdminContent />} />
+              <Route path="/admin/analytics" element={<AdminAnalytics />} />
+              <Route path="/admin/billing" element={<AdminBilling />} />
+              <Route path="/admin/support" element={<AdminSupport />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
 
-            {/* Catch all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+              {/* Catch all route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Toaster />
+          </BrowserRouter>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
