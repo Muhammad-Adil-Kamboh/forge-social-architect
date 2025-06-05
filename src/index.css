@@ -3,87 +3,83 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&family=Source+Serif+Pro:wght@400;600&display=swap');
 
 @layer base {
   :root {
-    --background: 255 255 255; /* Pure White */
-    --foreground: 0 0 0; /* Pure Black */
+    /* LinkedIn Official Brand Colors */
+    --blue-primary: 0 119 181; /* #0077B5 - Star Command Blue */
+    --blue-accent: 0 160 220; /* #00A0DC - Rich Electric Blue */
+    --grey-900: 0 0 0; /* #000000 - Black */
+    --grey-800: 49 51 53; /* #313335 - Dark Charcoal */
+    --grey-500: 134 136 138; /* #86888A - Taupe Gray */
+    --grey-300: 202 204 206; /* #CACCCE - Chinese Silver */
+    --white: 255 255 255; /* #FFFFFF - White */
 
-    --card: 255 255 255; /* Pure White */
-    --card-foreground: 0 0 0; /* Pure Black */
-
-    --popover: 255 255 255; /* Pure White */
-    --popover-foreground: 0 0 0; /* Pure Black */
-
-    --primary: 10 102 194; /* LinkedIn Blue #0A66C2 */
-    --primary-foreground: 255 255 255; /* Pure White */
-
-    --secondary: 243 242 239; /* LinkedIn Light Gray #F3F2EF */
-    --secondary-foreground: 0 0 0; /* Pure Black */
-
-    --muted: 243 242 239; /* LinkedIn Light Gray */
-    --muted-foreground: 102 102 102; /* Medium Gray */
-
-    --accent: 5 118 66; /* LinkedIn Green #057642 */
-    --accent-foreground: 255 255 255; /* Pure White */
-
-    --destructive: 220 38 38; /* Red */
-    --destructive-foreground: 255 255 255; /* Pure White */
-
-    --border: 229 231 235; /* Light Gray */
-    --input: 255 255 255; /* Pure White */
-    --ring: 10 102 194; /* LinkedIn Blue */
-
+    /* Design System Mappings */
+    --background: var(--white);
+    --foreground: var(--grey-900);
+    --card: var(--white);
+    --card-foreground: var(--grey-800);
+    --popover: var(--white);
+    --popover-foreground: var(--grey-800);
+    --primary: var(--blue-primary);
+    --primary-foreground: var(--white);
+    --secondary: var(--grey-300);
+    --secondary-foreground: var(--grey-800);
+    --muted: var(--grey-300);
+    --muted-foreground: var(--grey-500);
+    --accent: var(--blue-accent);
+    --accent-foreground: var(--white);
+    --destructive: 220 38 38;
+    --destructive-foreground: var(--white);
+    --border: var(--grey-300);
+    --input: var(--white);
+    --ring: var(--blue-primary);
     --radius: 8px;
 
-    --sidebar-background: 255 255 255;
-    --sidebar-foreground: 0 0 0;
-    --sidebar-primary: 10 102 194;
-    --sidebar-primary-foreground: 255 255 255;
-    --sidebar-accent: 243 242 239;
-    --sidebar-accent-foreground: 0 0 0;
-    --sidebar-border: 229 231 235;
-    --sidebar-ring: 10 102 194;
+    /* Sidebar mappings */
+    --sidebar-background: var(--white);
+    --sidebar-foreground: var(--grey-800);
+    --sidebar-primary: var(--blue-primary);
+    --sidebar-primary-foreground: var(--white);
+    --sidebar-accent: var(--grey-300);
+    --sidebar-accent-foreground: var(--grey-800);
+    --sidebar-border: var(--grey-300);
+    --sidebar-ring: var(--blue-primary);
   }
 
   .dark {
-    --background: 13 13 13; /* LinkedIn Dark Gray #0D0D0D */
-    --foreground: 255 255 255; /* Pure White */
+    /* Dark mode - inverted backgrounds, same brand hues */
+    --background: var(--grey-900);
+    --foreground: var(--white);
+    --card: var(--grey-800);
+    --card-foreground: var(--white);
+    --popover: var(--grey-800);
+    --popover-foreground: var(--white);
+    --primary: var(--blue-primary); /* Keep brand blue unchanged */
+    --primary-foreground: var(--white);
+    --secondary: var(--grey-800);
+    --secondary-foreground: var(--white);
+    --muted: var(--grey-800);
+    --muted-foreground: var(--grey-500);
+    --accent: var(--blue-accent); /* Keep brand blue unchanged */
+    --accent-foreground: var(--white);
+    --destructive: 239 68 68;
+    --destructive-foreground: var(--white);
+    --border: var(--grey-800);
+    --input: var(--grey-800);
+    --ring: var(--blue-primary);
 
-    --card: 28 28 28; /* Darker Gray #1C1C1C */
-    --card-foreground: 255 255 255; /* Pure White */
-
-    --popover: 28 28 28; /* Darker Gray */
-    --popover-foreground: 255 255 255; /* Pure White */
-
-    --primary: 10 102 194; /* LinkedIn Blue (same in dark) */
-    --primary-foreground: 255 255 255; /* Pure White */
-
-    --secondary: 40 40 40; /* Dark Gray #282828 */
-    --secondary-foreground: 255 255 255; /* Pure White */
-
-    --muted: 40 40 40; /* Dark Gray */
-    --muted-foreground: 163 163 163; /* Light Gray */
-
-    --accent: 5 118 66; /* LinkedIn Green (same in dark) */
-    --accent-foreground: 255 255 255; /* Pure White */
-
-    --destructive: 239 68 68; /* Light Red */
-    --destructive-foreground: 255 255 255; /* Pure White */
-
-    --border: 40 40 40; /* Dark Gray */
-    --input: 40 40 40; /* Dark Gray */
-    --ring: 10 102 194; /* LinkedIn Blue */
-
-    --sidebar-background: 13 13 13;
-    --sidebar-foreground: 255 255 255;
-    --sidebar-primary: 10 102 194;
-    --sidebar-primary-foreground: 255 255 255;
-    --sidebar-accent: 40 40 40;
-    --sidebar-accent-foreground: 255 255 255;
-    --sidebar-border: 40 40 40;
-    --sidebar-ring: 10 102 194;
+    /* Dark sidebar */
+    --sidebar-background: var(--grey-900);
+    --sidebar-foreground: var(--white);
+    --sidebar-primary: var(--blue-primary);
+    --sidebar-primary-foreground: var(--white);
+    --sidebar-accent: var(--grey-800);
+    --sidebar-accent-foreground: var(--white);
+    --sidebar-border: var(--grey-800);
+    --sidebar-ring: var(--blue-primary);
   }
 }
 
@@ -93,37 +89,134 @@
   }
 
   html {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     scroll-behavior: smooth;
   }
 
   body {
     @apply bg-background text-foreground transition-colors duration-300;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  /* Typography Scale - LinkedIn Standards */
+  h1 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgb(var(--grey-900));
+  }
+
+  h2 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: rgb(var(--grey-800));
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgb(var(--grey-800));
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 75ch; /* LinkedIn readability standard */
+  }
+
+  .dark h1 {
+    color: rgb(var(--white));
+  }
+
+  .dark h2,
+  .dark h3 {
+    color: rgb(var(--white));
+  }
+
+  /* Blog content uses Source Serif */
+  .blog-content {
+    font-family: 'Source Serif Pro', serif;
   }
 }
 
-/* Custom animations and LinkedIn specific styles */
+/* LinkedIn Brand Components */
 @layer components {
-  .animate-stagger {
-    animation-delay: calc(var(--stagger) * 150ms);
-  }
-  
-  .gradient-linkedin {
-    background: linear-gradient(135deg, #0A66C2 0%, #057642 100%);
-  }
-  
-  .text-gradient-linkedin {
-    background: linear-gradient(135deg, #0A66C2 0%, #057642 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* CTA Buttons - LinkedIn Standard */
+  .btn-linkedin-primary {
+    @apply bg-[rgb(var(--blue-primary))] text-white hover:bg-[rgb(var(--blue-accent))] transition-colors duration-150 ease-out;
   }
 
-  .linkedin-shadow {
-    box-shadow: 0 4px 6px -1px rgba(10, 102, 194, 0.1), 0 2px 4px -1px rgba(10, 102, 194, 0.06);
+  /* Links - LinkedIn Standard */
+  .link-linkedin {
+    @apply text-[rgb(var(--blue-primary))] hover:text-[rgb(var(--blue-accent))] transition-colors duration-150;
   }
 
-  .dark .linkedin-shadow {
-    box-shadow: 0 4px 6px -1px rgba(10, 102, 194, 0.2), 0 2px 4px -1px rgba(10, 102, 194, 0.1);
+  /* Focus rings - Accessibility compliance */
+  .focus-linkedin {
+    @apply focus-visible:ring-2 focus-visible:ring-[rgb(var(--blue-accent))] focus-visible:ring-offset-2;
+  }
+
+  /* Micro-interactions - Professional feel */
+  .animate-linkedin-hover {
+    @apply transition-all duration-150 ease-out hover:scale-105;
+  }
+
+  .animate-linkedin-fade {
+    @apply transition-opacity duration-160 ease-out;
+  }
+
+  /* Shadows - Subtle, grey-based only */
+  .shadow-linkedin {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-linkedin-hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Skeleton loading - Brand compliant */
+  .skeleton-linkedin {
+    @apply bg-[rgb(var(--grey-300))] animate-pulse rounded;
+  }
+
+  /* Remove all non-brand gradients and colors */
+  .gradient-linkedin-hero {
+    background: linear-gradient(135deg, rgb(var(--blue-primary)) 0%, rgb(var(--blue-accent)) 100%);
+  }
+
+  /* Duotone image overlay */
+  .img-duotone-linkedin {
+    filter: sepia(1) hue-rotate(180deg) saturate(2) brightness(0.8);
+  }
+}
+
+/* Override any existing non-brand colors */
+.text-purple-600,
+.text-green-600,
+.text-yellow-500,
+.bg-purple-600,
+.bg-green-600,
+.bg-yellow-500,
+.from-purple-600,
+.to-green-600,
+.border-purple-600,
+.border-green-600 {
+  @apply text-[rgb(var(--blue-primary))] bg-[rgb(var(--blue-primary))] border-[rgb(var(--blue-primary))];
+}
+
+/* Ensure 8pt grid spacing */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
   }
 }
