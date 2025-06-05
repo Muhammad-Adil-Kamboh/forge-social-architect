@@ -19,70 +19,82 @@
     --grey-100: 250 250 250; /* #FAFAFA - Very Light Background */
     --white: 255 255 255; /* #FFFFFF - White */
 
+    /* Theme Color Variables - Light Mode Default */
+    --theme-bg-primary: var(--white);
+    --theme-bg-secondary: var(--grey-100);
+    --theme-bg-surface: var(--white);
+    --theme-text-primary: var(--grey-900);
+    --theme-text-secondary: var(--grey-700);
+    --theme-text-muted: var(--grey-500);
+    --theme-border: var(--grey-300);
+    --theme-accent: var(--blue-primary);
+    --theme-accent-hover: var(--blue-accent);
+
     /* Design System Mappings */
-    --background: var(--white);
-    --foreground: var(--grey-900);
-    --card: var(--white);
-    --card-foreground: var(--grey-800);
-    --popover: var(--white);
-    --popover-foreground: var(--grey-800);
-    --primary: var(--blue-primary);
+    --background: var(--theme-bg-primary);
+    --foreground: var(--theme-text-primary);
+    --card: var(--theme-bg-surface);
+    --card-foreground: var(--theme-text-primary);
+    --popover: var(--theme-bg-surface);
+    --popover-foreground: var(--theme-text-primary);
+    --primary: var(--theme-accent);
     --primary-foreground: var(--white);
     --secondary: var(--grey-200);
     --secondary-foreground: var(--grey-800);
     --muted: var(--grey-200);
     --muted-foreground: var(--grey-500);
-    --accent: var(--blue-accent);
+    --accent: var(--theme-accent-hover);
     --accent-foreground: var(--white);
     --destructive: 220 38 38;
     --destructive-foreground: var(--white);
-    --border: var(--grey-300);
-    --input: var(--white);
-    --ring: var(--blue-primary);
+    --border: var(--theme-border);
+    --input: var(--theme-bg-surface);
+    --ring: var(--theme-accent);
     --radius: 8px;
 
     /* Sidebar mappings */
-    --sidebar-background: var(--white);
-    --sidebar-foreground: var(--grey-800);
-    --sidebar-primary: var(--blue-primary);
+    --sidebar-background: var(--theme-bg-surface);
+    --sidebar-foreground: var(--theme-text-primary);
+    --sidebar-primary: var(--theme-accent);
     --sidebar-primary-foreground: var(--white);
     --sidebar-accent: var(--grey-200);
-    --sidebar-accent-foreground: var(--grey-800);
-    --sidebar-border: var(--grey-300);
-    --sidebar-ring: var(--blue-primary);
+    --sidebar-accent-foreground: var(--theme-text-primary);
+    --sidebar-border: var(--theme-border);
+    --sidebar-ring: var(--theme-accent);
   }
 
   .dark {
     /* Dark mode - inverted backgrounds, same brand hues */
-    --background: var(--grey-900);
-    --foreground: var(--white);
-    --card: var(--grey-800);
-    --card-foreground: var(--white);
-    --popover: var(--grey-800);
-    --popover-foreground: var(--white);
-    --primary: var(--blue-primary); /* Keep brand blue unchanged */
-    --primary-foreground: var(--white);
+    --theme-bg-primary: var(--grey-900);
+    --theme-bg-secondary: var(--grey-800);
+    --theme-bg-surface: var(--grey-800);
+    --theme-text-primary: var(--white);
+    --theme-text-secondary: var(--grey-300);
+    --theme-text-muted: var(--grey-500);
+    --theme-border: var(--grey-700);
+    --theme-accent: var(--blue-primary);
+    --theme-accent-hover: var(--blue-accent);
+
+    /* Update design system for dark mode */
+    --background: var(--theme-bg-primary);
+    --foreground: var(--theme-text-primary);
+    --card: var(--theme-bg-surface);
+    --card-foreground: var(--theme-text-primary);
+    --popover: var(--theme-bg-surface);
+    --popover-foreground: var(--theme-text-primary);
     --secondary: var(--grey-800);
     --secondary-foreground: var(--white);
     --muted: var(--grey-800);
     --muted-foreground: var(--grey-500);
-    --accent: var(--blue-accent); /* Keep brand blue unchanged */
-    --accent-foreground: var(--white);
-    --destructive: 239 68 68;
-    --destructive-foreground: var(--white);
-    --border: var(--grey-800);
-    --input: var(--grey-800);
-    --ring: var(--blue-primary);
+    --border: var(--theme-border);
+    --input: var(--theme-bg-surface);
 
     /* Dark sidebar */
-    --sidebar-background: var(--grey-900);
-    --sidebar-foreground: var(--white);
-    --sidebar-primary: var(--blue-primary);
-    --sidebar-primary-foreground: var(--white);
+    --sidebar-background: var(--theme-bg-primary);
+    --sidebar-foreground: var(--theme-text-primary);
     --sidebar-accent: var(--grey-800);
-    --sidebar-accent-foreground: var(--white);
-    --sidebar-border: var(--grey-800);
-    --sidebar-ring: var(--blue-primary);
+    --sidebar-accent-foreground: var(--theme-text-primary);
+    --sidebar-border: var(--theme-border);
   }
 }
 
@@ -97,10 +109,11 @@
   }
 
   body {
-    @apply bg-background text-foreground transition-colors duration-300;
+    @apply transition-colors duration-300;
     font-weight: 400;
     line-height: 1.6;
-    background-color: rgb(var(--grey-200));
+    background-color: rgb(var(--theme-bg-primary));
+    color: rgb(var(--theme-text-primary));
   }
 
   /* Typography Scale - LinkedIn Standards */
@@ -108,21 +121,21 @@
     font-size: 48px;
     font-weight: 600;
     line-height: 1.2;
-    color: rgb(var(--grey-900));
+    color: rgb(var(--theme-text-primary));
   }
 
   h2 {
     font-size: 32px;
     font-weight: 600;
     line-height: 1.3;
-    color: rgb(var(--grey-800));
+    color: rgb(var(--theme-text-primary));
   }
 
   h3 {
     font-size: 24px;
     font-weight: 600;
     line-height: 1.4;
-    color: rgb(var(--grey-800));
+    color: rgb(var(--theme-text-primary));
   }
 
   p {
@@ -130,20 +143,7 @@
     font-weight: 400;
     line-height: 1.6;
     max-width: 75ch; /* LinkedIn readability standard */
-    color: rgb(var(--grey-700));
-  }
-
-  .dark h1 {
-    color: rgb(var(--white));
-  }
-
-  .dark h2,
-  .dark h3 {
-    color: rgb(var(--white));
-  }
-
-  .dark p {
-    color: rgb(var(--grey-300));
+    color: rgb(var(--theme-text-secondary));
   }
 
   /* Blog content uses Source Serif */
@@ -156,17 +156,30 @@
 @layer components {
   /* CTA Buttons - LinkedIn Standard */
   .btn-linkedin-primary {
-    @apply bg-[rgb(var(--blue-primary))] text-white hover:bg-[rgb(var(--blue-accent))] transition-colors duration-150 ease-out;
+    background-color: rgb(var(--theme-accent));
+    color: rgb(var(--white));
+    transition: all 0.15s ease-out;
+  }
+
+  .btn-linkedin-primary:hover {
+    background-color: rgb(var(--theme-accent-hover));
+    transform: scale(1.02);
   }
 
   /* Links - LinkedIn Standard */
   .link-linkedin {
-    @apply text-[rgb(var(--blue-primary))] hover:text-[rgb(var(--blue-accent))] transition-colors duration-150;
+    color: rgb(var(--theme-accent));
+    transition: color 0.15s ease-out;
+  }
+
+  .link-linkedin:hover {
+    color: rgb(var(--theme-accent-hover));
   }
 
   /* Focus rings - Accessibility compliance */
   .focus-linkedin {
-    @apply focus-visible:ring-2 focus-visible:ring-[rgb(var(--blue-accent))] focus-visible:ring-offset-2;
+    @apply focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: rgb(var(--theme-accent-hover));
   }
 
   /* Micro-interactions - Professional feel */
@@ -187,66 +200,58 @@
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  /* Skeleton loading - Brand compliant */
-  .skeleton-linkedin {
-    @apply bg-[rgb(var(--grey-300))] animate-pulse rounded;
-  }
-
   /* LinkedIn-compliant backgrounds */
   .bg-linkedin-light {
-    background-color: rgb(var(--grey-200));
+    background-color: rgb(var(--theme-bg-secondary));
   }
 
   .bg-linkedin-surface {
-    background-color: rgb(var(--white));
+    background-color: rgb(var(--theme-bg-surface));
   }
 
-  /* Text colors */
+  /* Text colors using theme variables */
   .text-linkedin-primary {
-    color: rgb(var(--blue-primary));
+    color: rgb(var(--theme-accent));
   }
 
   .text-linkedin-secondary {
-    color: rgb(var(--grey-700));
+    color: rgb(var(--theme-text-secondary));
   }
 
   .text-linkedin-muted {
-    color: rgb(var(--grey-500));
+    color: rgb(var(--theme-text-muted));
   }
 
-  /* Border colors */
+  /* Border colors using theme variables */
   .border-linkedin {
-    border-color: rgb(var(--grey-300));
+    border-color: rgb(var(--theme-border));
   }
 
   /* Hover states */
   .hover-linkedin-surface:hover {
     background-color: rgb(var(--grey-100));
   }
-}
 
-/* Override any existing non-brand colors */
-.text-purple-600,
-.text-green-600,
-.text-yellow-500,
-.bg-purple-600,
-.bg-green-600,
-.bg-yellow-500,
-.from-purple-600,
-.to-green-600,
-.border-purple-600,
-.border-green-600 {
-  @apply text-[rgb(var(--blue-primary))] bg-[rgb(var(--blue-primary))] border-[rgb(var(--blue-primary))];
-}
+  /* Panel-specific styles */
+  .user-panel {
+    background-color: rgb(var(--theme-bg-primary));
+    color: rgb(var(--theme-text-primary));
+  }
 
-/* Remove any orange/yellow/brown tones */
-.text-orange-500,
-.text-amber-500,
-.text-yellow-600,
-.bg-orange-500,
-.bg-amber-500,
-.bg-yellow-600 {
-  @apply text-[rgb(var(--blue-primary))] bg-[rgb(var(--blue-primary))];
+  .admin-panel {
+    background-color: rgb(var(--theme-bg-primary));
+    color: rgb(var(--theme-text-primary));
+  }
+
+  .admin-panel .sidebar {
+    background-color: rgb(var(--theme-bg-surface));
+    border-color: rgb(var(--theme-border));
+  }
+
+  .user-panel .sidebar {
+    background-color: rgb(var(--theme-bg-surface));
+    border-color: rgb(var(--theme-border));
+  }
 }
 
 /* Ensure 8pt grid spacing */

@@ -1,8 +1,7 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@/contexts/AuthContext';
 
 export interface Blog {
   id: string;
@@ -19,7 +18,7 @@ export interface Blog {
   published_at: string | null;
   scheduled_at: string | null;
   author_id: string;
-  view_count: number;
+  view_count: number | null;
   created_at: string;
   updated_at: string;
   profiles?: {
@@ -28,7 +27,7 @@ export interface Blog {
   };
 }
 
-interface CreateBlogData {
+export interface CreateBlogData {
   title: string;
   slug: string;
   description?: string;
@@ -38,7 +37,7 @@ interface CreateBlogData {
   meta_description?: string;
   keywords?: string[];
   tags?: string[];
-  status?: 'draft' | 'published' | 'scheduled';
+  status: 'draft' | 'published' | 'scheduled';
   published_at?: string;
   scheduled_at?: string;
 }
@@ -47,12 +46,11 @@ export const useBlog = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  const { user, profile } = useAuth();
 
-  const fetchBlogs = async (published_only = false) => {
+  const fetchBlogs = useCallback(async () => {
     setLoading(true);
     try {
-      let query = supabase
+      const { data, error } = await supabase
         .from('blogs')
         .select(`
           *,
@@ -63,26 +61,28 @@ export const useBlog = () => {
         `)
         .order('created_at', { ascending: false });
 
-      if (published_only) {
-        query = query.eq('status', 'published');
-      }
-
-      const { data, error } = await query;
-
       if (error) throw error;
-      setBlogs(data || []);
-    } catch (error: any) {
+      
+      // Type assertion to ensure proper typing
+      const typedBlogs = (data || []).map(blog => ({
+        ...blog,
+        status: blog.status as 'draft' | 'published' | 'scheduled'
+      })) as Blog[];
+      
+      setBlogs(typedBlogs);
+    } catch (error) {
+      console.error('Error fetching blogs:', error);
       toast({
         variant: "destructive",
-        title: "Failed to fetch blogs",
-        description: error.message
+        title: "Error",
+        description: "Failed to fetch blogs"
       });
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
-  const fetchBlogBySlug = async (slug: string) => {
+  const fetchPublishedBlogs = useCallback(async () => {
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -94,104 +94,90 @@ export const useBlog = () => {
             last_name
           )
         `)
-        .eq('slug', slug)
-        .single();
+        .eq('status', 'published')
+        .order('published_at', { ascending: false });
 
       if (error) throw error;
       
-      // Increment view count
-      if (data) {
-        await supabase
-          .from('blogs')
-          .update({ view_count: (data.view_count || 0) + 1 })
-          .eq('id', data.id);
-      }
+      const typedBlogs = (data || []).map(blog => ({
+        ...blog,
+        status: blog.status as 'draft' | 'published' | 'scheduled'
+      })) as Blog[];
       
-      return data;
-    } catch (error: any) {
+      setBlogs(typedBlogs);
+    } catch (error) {
+      console.error('Error fetching published blogs:', error);
       toast({
         variant: "destructive",
-        title: "Failed to fetch blog",
-        description: error.message
+        title: "Error",
+        description: "Failed to fetch blogs"
       });
-      return null;
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
-  const createBlog = async (blogData: CreateBlogData) => {
-    if (!user) {
-      toast({
-        variant: "destructive",
-        title: "Authentication required",
-        description: "You must be logged in to create a blog."
-      });
-      return null;
-    }
-
+  const createBlog = useCallback(async (blogData: CreateBlogData) => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error('User not authenticated');
+
+      const { error } = await supabase
         .from('blogs')
-        .insert({
-          ...blogData,
-          author_id: user.id
-        })
-        .select()
-        .single();
+        .insert([{ ...blogData, author_id: user.id }]);
 
       if (error) throw error;
 
       toast({
-        title: "Blog created",
-        description: "Your blog post has been created successfully."
+        title: "Success",
+        description: "Blog post created successfully"
       });
 
-      return data;
-    } catch (error: any) {
+      return true;
+    } catch (error) {
+      console.error('Error creating blog:', error);
       toast({
         variant: "destructive",
-        title: "Failed to create blog",
-        description: error.message
+        title: "Error",
+        description: "Failed to create blog post"
       });
-      return null;
+      return false;
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
-  const updateBlog = async (id: string, updates: Partial<CreateBlogData>) => {
+  const updateBlog = useCallback(async (id: string, blogData: Partial<CreateBlogData>) => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('blogs')
-        .update(updates)
-        .eq('id', id)
-        .select()
-        .single();
+        .update(blogData)
+        .eq('id', id);
 
       if (error) throw error;
 
       toast({
-        title: "Blog updated",
-        description: "Your blog post has been updated successfully."
+        title: "Success",
+        description: "Blog post updated successfully"
       });
 
-      return data;
-    } catch (error: any) {
+      return true;
+    } catch (error) {
+      console.error('Error updating blog:', error);
       toast({
         variant: "destructive",
-        title: "Failed to update blog",
-        description: error.message
+        title: "Error",
+        description: "Failed to update blog post"
       });
-      return null;
+      return false;
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
-  const deleteBlog = async (id: string) => {
+  const deleteBlog = useCallback(async (id: string) => {
     setLoading(true);
     try {
       const { error } = await supabase
@@ -202,89 +188,57 @@ export const useBlog = () => {
       if (error) throw error;
 
       toast({
-        title: "Blog deleted",
-        description: "Your blog post has been deleted successfully."
+        title: "Success",
+        description: "Blog post deleted successfully"
       });
 
       return true;
-    } catch (error: any) {
+    } catch (error) {
+      console.error('Error deleting blog:', error);
       toast({
         variant: "destructive",
-        title: "Failed to delete blog",
-        description: error.message
+        title: "Error",
+        description: "Failed to delete blog post"
       });
       return false;
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
-  const uploadImage = async (file: File, folder: string = 'blog-images') => {
-    if (!user) {
-      toast({
-        variant: "destructive",
-        title: "Authentication required",
-        description: "You must be logged in to upload images."
-      });
-      return null;
-    }
-
-    setLoading(true);
+  const uploadImage = useCallback(async (file: File): Promise<string | null> => {
     try {
       const fileExt = file.name.split('.').pop();
-      const fileName = `${user.id}/${Date.now()}.${fileExt}`;
-      
-      const { data, error } = await supabase.storage
-        .from(folder)
-        .upload(fileName, file);
+      const fileName = `${Math.random()}.${fileExt}`;
+      const filePath = `blog-images/${fileName}`;
 
-      if (error) throw error;
+      const { error: uploadError } = await supabase.storage
+        .from('blog-images')
+        .upload(filePath, file);
 
-      const { data: { publicUrl } } = supabase.storage
-        .from(folder)
-        .getPublicUrl(fileName);
+      if (uploadError) throw uploadError;
 
-      return publicUrl;
-    } catch (error: any) {
+      const { data } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filePath);
+
+      return data.publicUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
       toast({
         variant: "destructive",
-        title: "Failed to upload image",
-        description: error.message
+        title: "Error",
+        description: "Failed to upload image"
       });
       return null;
-    } finally {
-      setLoading(false);
     }
-  };
-
-  // Set up real-time subscription for blogs
-  useEffect(() => {
-    const channel = supabase
-      .channel('blogs-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'blogs'
-        },
-        () => {
-          // Refresh blogs when changes occur
-          fetchBlogs();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
+  }, [toast]);
 
   return {
     blogs,
     loading,
     fetchBlogs,
-    fetchBlogBySlug,
+    fetchPublishedBlogs,
     createBlog,
     updateBlog,
     deleteBlog,
