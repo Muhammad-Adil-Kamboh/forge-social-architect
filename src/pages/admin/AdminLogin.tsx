@@ -12,14 +12,21 @@ const AdminLogin: React.FC = () => {
   const navigate = useNavigate();
   const { signIn, user, profile, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@example.com');
+  const [password, setPassword] = useState('AdminPassword123!');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Redirect if already logged in as admin
   useEffect(() => {
-    if (user && profile?.role === 'admin' && !loading) {
-      navigate('/admin');
+    console.log('AdminLogin useEffect:', { user: !!user, profile, loading });
+    
+    if (!loading && user && profile) {
+      if (profile.role === 'admin') {
+        console.log('Redirecting to admin dashboard');
+        navigate('/admin', { replace: true });
+      } else {
+        console.log('User is not admin:', profile.role);
+      }
     }
   }, [user, profile, loading, navigate]);
 
@@ -27,22 +34,29 @@ const AdminLogin: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+    console.log('Attempting admin login...');
     const { error } = await signIn(email, password);
     
     if (!error) {
-      // Check if user is admin after login
-      if (profile?.role === 'admin') {
-        navigate('/admin');
-      } else {
-        // Handle non-admin users trying to access admin
-        setIsSubmitting(false);
-      }
+      console.log('Login successful, waiting for profile...');
+      // The useEffect above will handle the redirect once profile is loaded
+    } else {
+      console.error('Login failed:', error);
+      setIsSubmitting(false);
     }
-    
-    setIsSubmitting(false);
   };
 
+  // Show loading while checking current auth state
   if (loading) {
+    return (
+      <div className="min-h-screen bg-linkedin-light flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-linkedin-primary" />
+      </div>
+    );
+  }
+
+  // If already authenticated as admin, don't show login form
+  if (user && profile?.role === 'admin') {
     return (
       <div className="min-h-screen bg-linkedin-light flex items-center justify-center">
         <Loader2 className="w-8 h-8 animate-spin text-linkedin-primary" />

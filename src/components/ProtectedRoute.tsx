@@ -17,6 +17,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
   const { user, profile, loading } = useAuth();
 
+  // Show loading spinner while checking authentication
   if (loading) {
     return (
       <div className="min-h-screen bg-linkedin-light flex items-center justify-center">
@@ -25,11 +26,22 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     );
   }
 
+  // If no user is logged in, redirect to login
   if (!user) {
     return <Navigate to={redirectTo} replace />;
   }
 
-  if (requireAdmin && profile?.role !== 'admin') {
+  // If profile is still loading after user is available, wait a bit more
+  if (!profile) {
+    return (
+      <div className="min-h-screen bg-linkedin-light flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-linkedin-primary" />
+      </div>
+    );
+  }
+
+  // If admin access is required but user is not admin, redirect to admin login
+  if (requireAdmin && profile.role !== 'admin') {
     return <Navigate to="/admin/login" replace />;
   }
 

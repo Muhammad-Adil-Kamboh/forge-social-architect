@@ -24,6 +24,8 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: AuthError | null }>;
   signOut: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => Promise<{ error: any }>;
+  isAdmin: boolean;
+  hasRole: (role: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -45,54 +47,91 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchProfile = async (userId: string) => {
     try {
+      console.log('Fetching profile for user:', userId);
       const { data, error } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', userId)
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching profile:', error);
+        throw error;
+      }
+      
+      console.log('Profile fetched:', data);
       setProfile(data);
+      return data;
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      console.error('Error in fetchProfile:', error);
+      setProfile(null);
+      return null;
     }
   };
 
   useEffect(() => {
+    let mounted = true;
+
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('Auth state changed:', event, session?.user?.id);
+        
+        if (!mounted) return;
+        
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
           // Defer profile fetch to avoid deadlock
-          setTimeout(() => {
-            fetchProfile(session.user.id);
+          setTimeout(async () => {
+            if (mounted) {
+              await fetchProfile(session.user.id);
+              setLoading(false);
+            }
           }, 0);
         } else {
           setProfile(null);
+          setLoading(false);
         }
-        
-        setLoading(false);
       }
     );
 
     // Check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        setTimeout(() => {
-          fetchProfile(session.user.id);
-        }, 0);
+    const getInitialSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        
+        if (error) {
+          console.error('Error getting session:', error);
+          setLoading(false);
+          return;
+        }
+        
+        console.log('Initial session:', session?.user?.id);
+        
+        if (!mounted) return;
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        if (session?.user) {
+          await fetchProfile(session.user.id);
+        }
+        
+        setLoading(false);
+      } catch (error) {
+        console.error('Error in getInitialSession:', error);
+        setLoading(false);
       }
-      
-      setLoading(false);
-    });
+    };
 
-    return () => subscription.unsubscribe();
+    getInitialSession();
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, metadata?: any) => {
@@ -129,7 +168,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const signIn = async (email: string, password: string) => {
     setLoading(true);
     
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     });
@@ -145,9 +184,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         title: "Welcome back!",
         description: "You have successfully signed in."
       });
+      
+      // Fetch profile immediately after successful login
+      if (data.user) {
+        setTimeout(async () => {
+          await fetchProfile(data.user.id);
+          setLoading(false);
+        }, 0);
+      }
     }
 
-    setLoading(false);
+    if (!data.user) {
+      setLoading(false);
+    }
+    
     return { error };
   };
 
@@ -167,6 +217,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         title: "Signed Out",
         description: "You have been successfully signed out."
       });
+      setUser(null);
+      setProfile(null);
+      setSession(null);
     }
     
     setLoading(false);
@@ -194,14 +247,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: "Your profile has been successfully updated."
       });
       // Refresh profile data
-      setTimeout(() => {
-        fetchProfile(user.id);
+      setTimeout(async () => {
+        await fetchProfile(user.id);
+        setLoading(false);
       }, 0);
     }
 
-    setLoading(false);
+    if (error) {
+      setLoading(false);
+    }
+    
     return { error };
   };
+
+  const isAdmin = profile?.role === 'admin';
+  const hasRole = (role: string) => profile?.role === role;
 
   const value = {
     user,
@@ -211,7 +271,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     signUp,
     signIn,
     signOut,
-    updateProfile
+    updateProfile,
+    isAdmin,
+    hasRole
   };
 
   return (
