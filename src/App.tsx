@@ -2,7 +2,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from '@/components/theme/ThemeProvider';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { Toaster } from '@/components/ui/toaster';
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 
 // Public pages
 import Home from '@/pages/public/Home';
@@ -54,6 +57,7 @@ import ProfileSettings from '@/pages/ProfileSettings';
 import SupportHub from '@/pages/SupportHub';
 
 // Admin pages
+import AdminLogin from '@/pages/admin/AdminLogin';
 import AdminDashboard from '@/pages/admin/AdminDashboard';
 import AdminUsers from '@/pages/admin/AdminUsers';
 import AdminContent from '@/pages/admin/AdminContent';
@@ -64,77 +68,171 @@ import AdminSettings from '@/pages/admin/AdminSettings';
 
 // Error pages
 import NotFound from '@/pages/NotFound';
+import { UserPanelNotFound } from '@/components/error/UserPanelNotFound';
+import { AdminPanelNotFound } from '@/components/error/AdminPanelNotFound';
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey="leadkin-ui-theme">
-        <BrowserRouter>
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/free-tools" element={<FreeTools />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogArticle />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/help/:slug" element={<HelpArticle />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/careers" element={<Careers />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/partners" element={<Partners />} />
-            <Route path="/resources" element={<Resources />} />
+      <ThemeProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/features" element={<Features />} />
+              <Route path="/free-tools" element={<FreeTools />} />
+              <Route path="/pricing" element={<Pricing />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogArticle />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/help/:slug" element={<HelpArticle />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/careers" element={<Careers />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/partners" element={<Partners />} />
+              <Route path="/resources" element={<Resources />} />
 
-            {/* Legal routes */}
-            <Route path="/our-privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
+              {/* Legal routes */}
+              <Route path="/our-privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
 
-            {/* Auth routes */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+              {/* Auth routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
 
-            {/* Tool routes */}
-            <Route path="/tools/linkedin-post-generator" element={<LinkedInPostGenerator />} />
-            <Route path="/tools/linkedin-headline-generator" element={<LinkedInHeadlineGenerator />} />
-            <Route path="/tools/linkedin-summary-generator" element={<LinkedInSummaryGenerator />} />
-            <Route path="/tools/linkedin-carousel-generator" element={<LinkedInCarouselGenerator />} />
-            <Route path="/tools/linkedin-profile-feedback" element={<LinkedInProfileFeedback />} />
-            <Route path="/tools/linkedin-post-booster" element={<LinkedInPostBooster />} />
-            <Route path="/tools/viral-post-generator" element={<ViralPostGenerator />} />
-            <Route path="/tools/linkedin-video-downloader" element={<LinkedInVideoDownloader />} />
+              {/* Tool routes */}
+              <Route path="/tools/linkedin-post-generator" element={<LinkedInPostGenerator />} />
+              <Route path="/tools/linkedin-headline-generator" element={<LinkedInHeadlineGenerator />} />
+              <Route path="/tools/linkedin-summary-generator" element={<LinkedInSummaryGenerator />} />
+              <Route path="/tools/linkedin-carousel-generator" element={<LinkedInCarouselGenerator />} />
+              <Route path="/tools/linkedin-profile-feedback" element={<LinkedInProfileFeedback />} />
+              <Route path="/tools/linkedin-post-booster" element={<LinkedInPostBooster />} />
+              <Route path="/tools/viral-post-generator" element={<ViralPostGenerator />} />
+              <Route path="/tools/linkedin-video-downloader" element={<LinkedInVideoDownloader />} />
 
-            {/* App routes (authenticated) */}
-            <Route path="/app" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/ai-studio" element={<AIStudio />} />
-            <Route path="/idea-lab" element={<IdeaLab />} />
-            <Route path="/drafts" element={<Drafts />} />
-            <Route path="/pipeline" element={<Pipeline />} />
-            <Route path="/saved-posts" element={<SavedPosts />} />
-            <Route path="/library" element={<Library />} />
-            <Route path="/insights" element={<Insights />} />
-            <Route path="/network" element={<Network />} />
-            <Route path="/radar" element={<Radar />} />
-            <Route path="/team-space" element={<TeamSpace />} />
-            <Route path="/profile-settings" element={<ProfileSettings />} />
-            <Route path="/support-hub" element={<SupportHub />} />
+              {/* App routes (authenticated user panel) */}
+              <Route path="/app" element={
+                <ProtectedRoute>
+                  <Index />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/dashboard" element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/ai-studio" element={
+                <ProtectedRoute>
+                  <AIStudio />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/idea-lab" element={
+                <ProtectedRoute>
+                  <IdeaLab />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/drafts" element={
+                <ProtectedRoute>
+                  <Drafts />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/pipeline" element={
+                <ProtectedRoute>
+                  <Pipeline />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/saved-posts" element={
+                <ProtectedRoute>
+                  <SavedPosts />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/library" element={
+                <ProtectedRoute>
+                  <Library />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/insights" element={
+                <ProtectedRoute>
+                  <Insights />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/network" element={
+                <ProtectedRoute>
+                  <Network />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/radar" element={
+                <ProtectedRoute>
+                  <Radar />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/team-space" element={
+                <ProtectedRoute>
+                  <TeamSpace />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/profile-settings" element={
+                <ProtectedRoute>
+                  <ProfileSettings />
+                </ProtectedRoute>
+              } />
+              <Route path="/app/support-hub" element={
+                <ProtectedRoute>
+                  <SupportHub />
+                </ProtectedRoute>
+              } />
+              {/* User panel 404 fallback */}
+              <Route path="/app/*" element={<UserPanelNotFound />} />
 
-            {/* Admin routes */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/content" element={<AdminContent />} />
-            <Route path="/admin/analytics" element={<AdminAnalytics />} />
-            <Route path="/admin/billing" element={<AdminBilling />} />
-            <Route path="/admin/support" element={<AdminSupport />} />
-            <Route path="/admin/settings" element={<AdminSettings />} />
+              {/* Admin routes */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/admin" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/users" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminUsers />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/content" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminContent />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/analytics" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminAnalytics />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/billing" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminBilling />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/support" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminSupport />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/settings" element={
+                <ProtectedRoute requireAdmin redirectTo="/admin/login">
+                  <AdminSettings />
+                </ProtectedRoute>
+              } />
+              {/* Admin panel 404 fallback */}
+              <Route path="/admin/*" element={<AdminPanelNotFound />} />
 
-            {/* Catch all route */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+              {/* Catch all route */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <Toaster />
+          </BrowserRouter>
+        </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );

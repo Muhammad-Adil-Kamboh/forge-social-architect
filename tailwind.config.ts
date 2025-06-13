@@ -15,7 +15,7 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1280px' // LinkedIn readability standard
 			}
 		},
 		extend: {
@@ -26,12 +26,12 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#0A66C2', // LinkedIn Primary Blue
+					DEFAULT: '#0077B5', // LinkedIn Star Command Blue
 					foreground: '#FFFFFF'
 				},
 				secondary: {
-					DEFAULT: '#F3F2EF', // LinkedIn Light Gray
-					foreground: '#000000'
+					DEFAULT: '#CACCCE', // LinkedIn Chinese Silver
+					foreground: '#313335'
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -42,7 +42,7 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: '#057642', // LinkedIn Green
+					DEFAULT: '#00A0DC', // LinkedIn Rich Electric Blue
 					foreground: '#FFFFFF'
 				},
 				popover: {
@@ -63,31 +63,33 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Pure LinkedIn colors
+				// LinkedIn Official Brand Colors Only
 				linkedin: {
-					50: '#EFF6FF',
-					100: '#DBEAFE', 
-					200: '#BFDBFE',
-					300: '#93C5FD',
-					400: '#60A5FA',
-					500: '#0A66C2', // Main LinkedIn Blue
-					600: '#0951A0',
-					700: '#083F7E',
-					800: '#062C5C',
-					900: '#041A3A'
-				},
-				'linkedin-green': {
-					50: '#ECFDF5',
-					100: '#D1FAE5',
-					200: '#A7F3D0',
-					300: '#6EE7B7',
-					400: '#34D399',
-					500: '#057642', // LinkedIn Green
-					600: '#059669',
-					700: '#047857',
-					800: '#065F46',
-					900: '#064E3B'
+					primary: '#0077B5', // Star Command Blue
+					accent: '#00A0DC',  // Rich Electric Blue
+					grey: {
+						900: '#000000', // Black
+						800: '#313335', // Dark Charcoal
+						500: '#86888A', // Taupe Gray
+						300: '#CACCCE', // Chinese Silver
+					},
+					white: '#FFFFFF'
 				}
+			},
+			fontFamily: {
+				'source-sans': ['Source Sans Pro', 'sans-serif'],
+				'source-serif': ['Source Serif Pro', 'serif'],
+			},
+			fontSize: {
+				'linkedin-h1': ['48px', { lineHeight: '1.2', fontWeight: '600' }],
+				'linkedin-h2': ['32px', { lineHeight: '1.3', fontWeight: '600' }],
+				'linkedin-h3': ['24px', { lineHeight: '1.4', fontWeight: '600' }],
+				'linkedin-body': ['18px', { lineHeight: '1.6', fontWeight: '400' }],
+			},
+			spacing: {
+				// 8pt grid system
+				'18': '4.5rem', // 72px
+				'22': '5.5rem', // 88px
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -115,17 +117,14 @@ export default {
 					'0%': { opacity: '0', transform: 'scale(0.95)' },
 					'100%': { opacity: '1', transform: 'scale(1)' }
 				},
-				'float': {
-					'0%, 100%': { transform: 'translateY(0px)' },
-					'50%': { transform: 'translateY(-10px)' }
+				// Professional micro-interactions only
+				'linkedin-hover': {
+					'0%': { transform: 'scale(1)' },
+					'100%': { transform: 'scale(1.02)' }
 				},
-				'pulse-slow': {
-					'0%, 100%': { opacity: '1' },
-					'50%': { opacity: '0.5' }
-				},
-				'bounce-soft': {
-					'0%, 100%': { transform: 'translateY(0)' },
-					'50%': { transform: 'translateY(-5px)' }
+				'linkedin-fade': {
+					'0%': { opacity: '0' },
+					'100%': { opacity: '1' }
 				}
 			},
 			animation: {
@@ -134,9 +133,12 @@ export default {
 				'fade-in': 'fade-in 0.6s ease-out',
 				'slide-up': 'slide-up 0.6s ease-out',
 				'scale-in': 'scale-in 0.6s ease-out',
-				'float': 'float 3s ease-in-out infinite',
-				'pulse-slow': 'pulse-slow 2s ease-in-out infinite',
-				'bounce-soft': 'bounce-soft 2s ease-in-out infinite'
+				'linkedin-hover': 'linkedin-hover 0.15s ease-out',
+				'linkedin-fade': 'linkedin-fade 0.16s ease-out'
+			},
+			boxShadow: {
+				'linkedin': '0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04)',
+				'linkedin-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
 			}
 		}
 	},
